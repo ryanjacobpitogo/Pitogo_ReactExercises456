@@ -3,12 +3,24 @@ import Menu from './Menu';
 import Categories from './Categories';
 import meals from './data';
 
-const allCategories = ['all', ...new Set(meals.map((meal) => meal.category))];
 
 function App() {
   const [mealItems, setMealItems] = useState(meals);
+  
+  const itemCategories = ['all'];
+
+  meals.map((meal) => {
+      itemCategories.push(meal.category);
+  });
+
+  const allCategories = itemCategories.filter((meal, pos) => {
+    return itemCategories.indexOf(meal) == pos;
+  })
+
   const [categories, setCategories] = useState(allCategories);
 
+
+  
   const filterItems = (category) => {
     if (category === 'all') {
       setMealItems(meals);
